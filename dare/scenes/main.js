@@ -5,6 +5,61 @@
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/.
  */
 
+var castle = [
+/*
+ 0         1         2         3         4
+ 01234567890123456789012345678901234567890123456789 */
+"                                                  ",  // 00
+"                                                  ",  // 01
+"                                                  ",  // 02
+"                                                  ",  // 03
+"                                                  ",  // 04
+"                                                  ",  // 05
+"                                                  ",  // 06
+"                                                  ",  // 07
+"                                                  ",  // 08
+"                                                  ",  // 09
+"                                                  ",  // 10
+"                                                  ",  // 11
+"                                                  ",  // 12
+"                                                  ",  // 13
+"                                                  ",  // 14
+"                                                  ",  // 15
+"                                                  ",  // 16
+"                                                  ",  // 17
+"                                      ********    ",  // 18
+"                                      *      *    ",  // 19
+"                                      *      *    ",  // 20
+"                                      *      *    ",  // 21
+"                                      *      *    ",  // 22
+"                                                  ",  // 23
+"                                                  ",  // 24
+"                                                  ",  // 25
+"                                                  ",  // 26
+"                                                  ",  // 27
+"                                                  ",  // 28
+"                                                  ",  // 29
+/*
+ 0         1         2         3         4
+ 01234567890123456789012345678901234567890123456789 */
+]
+
+var buildCastle = function() {
+    for (var y = 0; y < Dare.TILES_Y; y++) {
+        for (var x = 0; x < Dare.TILES_X; x++) {
+            if (castle[y].substr(x, 1) == '*') {
+                Crafty.e('2D, DOM, SpriteAnimation, stone')
+                    .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
+                    .animate('light', 0, 0, 1)
+                    .animate('light', 20, -1)
+                    ._frame.currentSlideNumber = Math.floor(Math.random() * 3);
+            };
+        };
+    };
+};
+
+
+
 var generateGrass = function() {
     for (var y = 0; y < Dare.TILES_Y; y++) {
         for (var x = 0; x < Dare.TILES_X; x++) {
@@ -25,6 +80,8 @@ var generateGrass = function() {
     };
 };
 
+
 Crafty.scene('main', function() {
-    generateGrass()
+    generateGrass();
+    buildCastle();
 });

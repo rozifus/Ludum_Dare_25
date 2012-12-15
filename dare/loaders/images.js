@@ -9,8 +9,11 @@ Crafty.scene('load_images', function() {
     var tiles = 'resources/tiles/'
     Crafty.load([tiles + 'grass_sub.png', 
                  tiles + 'grass_surf.png',
-                 tiles + 'stone.png' ]
-                , function() {
+                 tiles + 'stone.png',
+                 tiles + 'peasant.png',
+                 tiles + 'knight.png',
+                 tiles + 'villain.png', 
+                ], function() {
                     Crafty.scene('load_sprites');
                 });
     Crafty.background('#FFF');

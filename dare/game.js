@@ -7,7 +7,7 @@
 
 var Dare = Dare || {}
 Dare.TILE_SIZE = 16;
-Dare.TILES_X = 40;
+Dare.TILES_X = 50;
 Dare.TILES_Y = 30;
 Dare.SURFACE_Y = 22;
 Dare.getWidth = function() { return this.TILES_X * this.TILE_SIZE; };
