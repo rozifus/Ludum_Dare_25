@@ -102,5 +102,7 @@ Crafty.scene('main', function() {
     Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
         Crafty.trigger('PlayerClick', {x: e.layerX, y: e.layerY});
     });
+    Crafty.audio.add('main_theme', 'resources/audio/main_theme.ogg');
+    Crafty.audio.play('main_theme', -1, 0.7);
 
 });
