@@ -28,10 +28,10 @@ var castle = [
 "                                                  ",  // 16
 "                                                  ",  // 17
 "                                      ********    ",  // 18
-"                                      *      *    ",  // 19
-"                                      *      *    ",  // 20
-"                                      *      *    ",  // 21
-"                                      *      *    ",  // 22
+"                                      ********    ",  // 19
+"                                      ********    ",  // 20
+"                                      ********    ",  // 21
+"                                      ********    ",  // 22
 "                                                  ",  // 23
 "                                                  ",  // 24
 "                                                  ",  // 25
@@ -48,9 +48,12 @@ var buildCastle = function() {
     for (var y = 0; y < Dare.TILES_Y; y++) {
         for (var x = 0; x < Dare.TILES_X; x++) {
             if (castle[y].substr(x, 1) == '*') {
-                Crafty.e('2D, DOM, SpriteAnimation, stone')
-                    .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
+                var coords = Dare.getCoordsFromGrid( x,y );
+                coords.y -= 2;
+                Crafty.e('2D, DOM, Gravity, SpriteAnimation, stone, Solid')
+                    .attr( coords )
                     .animate('light', 0, 0, 1)
+                    .gravity('Solid')
                     .animate('light', 20, -1)
                     ._frame.currentSlideNumber = Math.floor(Math.random() * 3);
             };
@@ -70,7 +73,7 @@ var generateGrass = function() {
                     .animate('wind', 20, -1)
                     ._frame.currentSlideNumber = Math.floor(Math.random() * 3);
             } else if (y > Dare.SURFACE_Y) {
-                Crafty.e('2D, DOM, grass_sub, SpriteAnimation')
+                Crafty.e('2D, DOM, grass_sub, SpriteAnimation, Solid')
                     .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
                     .animate('wind', 0, 0, 2)
                     .animate('wind', 20, -1)
@@ -81,7 +84,20 @@ var generateGrass = function() {
 };
 
 
+var placeUnits = function() {
+    Crafty.e('2D, DOM, villain, Gravity')
+        .attr( Dare.getCoordsFromGrid(38, 16) )
+        .gravity('Solid');
+    Crafty.e('Knight')
+        .attr( Dare.getCoordsFromGrid(4, 20) )
+        .gravity('Solid');
+
+
+};
+
+
 Crafty.scene('main', function() {
     generateGrass();
     buildCastle();
+    placeUnits();
 });

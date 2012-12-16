@@ -13,6 +13,9 @@ Dare.SURFACE_Y = 22;
 Dare.getWidth = function() { return this.TILES_X * this.TILE_SIZE; };
 Dare.getHeight = function() { return this.TILES_Y * this.TILE_SIZE; };
 Dare.getSize = function() { return [this.getWidth(), this.getHeight()]; };
+Dare.getCoordsFromGrid = function(x,y) { 
+    return { x: x*this.TILE_SIZE, y: y*this.TILE_SIZE}
+};
 
 $(document).ready(function() {
     Crafty.init(Dare.getWidth() , Dare.getHeight());

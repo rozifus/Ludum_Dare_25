@@ -12,6 +12,7 @@ Crafty.scene('load_images', function() {
                  tiles + 'stone.png',
                  tiles + 'peasant.png',
                  tiles + 'knight.png',
+                 tiles + 'knight_slice.png',
                  tiles + 'villain.png', 
                 ], function() {
                     Crafty.scene('load_sprites');
