@@ -30,8 +30,8 @@ var castle = [
 "                                      ********    ",  // 18
 "                                      ********    ",  // 19
 "                                      ********    ",  // 20
-"                                      ********    ",  // 21
-"                                      ********    ",  // 22
+"          *               *           ********    ",  // 21
+"          *    *         **           ********    ",  // 22
 "                                                  ",  // 23
 "                                                  ",  // 24
 "                                                  ",  // 25
@@ -50,7 +50,7 @@ var buildCastle = function() {
             if (castle[y].substr(x, 1) == '*') {
                 var coords = Dare.getCoordsFromGrid( x,y );
                 coords.y -= 2;
-                Crafty.e('2D, DOM, Gravity, SpriteAnimation, stone, Solid')
+                Crafty.e('2D, DOM, Gravity, SpriteAnimation, stone, Health, Solid')
                     .attr( coords )
                     .animate('light', 0, 0, 1)
                     .gravity('Solid')
@@ -70,34 +70,37 @@ var generateGrass = function() {
                 Crafty.e('2D, DOM, grass_surf, SpriteAnimation')
                     .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
                     .animate('wind', 0, 0, 2)
-                    .animate('wind', 20, -1)
+                    .animate('wind', 30, -1)
                     ._frame.currentSlideNumber = Math.floor(Math.random() * 3);
             } else if (y > Dare.SURFACE_Y) {
-                Crafty.e('2D, DOM, grass_sub, SpriteAnimation, Solid')
-                    .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
-                    .animate('wind', 0, 0, 2)
-                    .animate('wind', 20, -1)
-                    ._frame.currentSlideNumber = Math.floor(Math.random() * 3);
+                var grass = Crafty.e('2D, DOM, grass_sub, SpriteAnimation, Grass, Solid')
+                        .attr({x: x * Dare.TILE_SIZE, y: y * Dare.TILE_SIZE})
+                        .animate('wind', 0, 0, 2)
+                        .animate('wind', 300, -1);
+                    grass._frame.currentSlideNumber = Math.floor(Math.random() * 3);
+                    grass._frame.frameNumberBetweenSlides = Math.floor(Math.random() * 100)
             };
         };
     };
 };
 
-
 var placeUnits = function() {
-    Crafty.e('2D, DOM, villain, Gravity')
-        .attr( Dare.getCoordsFromGrid(38, 16) )
-        .gravity('Solid');
+    Crafty.e('cVillain')
+        .attr( Dare.getCoordsFromGrid(44, 16) )
     Crafty.e('Knight')
         .attr( Dare.getCoordsFromGrid(4, 20) )
-        .gravity('Solid');
-
-
+    Crafty.e('Knight')
+        .attr( Dare.getCoordsFromGrid(9, 20) )
+    Crafty.e('Knight')
+        .attr( Dare.getCoordsFromGrid(6, 20) )
 };
-
 
 Crafty.scene('main', function() {
     generateGrass();
     buildCastle();
     placeUnits();
+    Crafty.addEvent(this, Crafty.stage.elem, "mousedown", function(e) {
+        Crafty.trigger('PlayerClick', {x: e.layerX, y: e.layerY});
+    });
+
 });
